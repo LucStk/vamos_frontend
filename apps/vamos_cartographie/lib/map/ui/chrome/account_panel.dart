@@ -1,5 +1,8 @@
 import 'dart:math' as math;
 
+// material_ui réexporte package:flutter/widgets.dart, qui ne laisse passer de
+// painting que quelques fournisseurs d'images, sans ResizeImage.
+import 'package:flutter/painting.dart' show ResizeImage;
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:user_profile_application/domain/domain.dart';
@@ -14,7 +17,8 @@ import 'package:vamos_cartographie/routing/routes/auth_routes.dart';
 import 'package:vamos_cartographie/routing/trip_navigation.dart';
 
 /// Panneau de compte : se déplie depuis le bord gauche, prend toute la hauteur
-/// et la moitié de la largeur sur téléphone. En haut, le compte (avatar, puis
+/// et la plus grande part de la largeur sur téléphone. En haut, le compte
+/// (avatar, puis
 /// profil et déconnexion, ou connexion pour un visiteur) ; dessous, trois
 /// onglets dépliants : les voyages vus récemment, les favoris, les
 /// abonnements.
@@ -35,9 +39,12 @@ class AccountPanel extends ConsumerStatefulWidget {
 
 class _AccountPanelState extends ConsumerState<AccountPanel>
     with SingleTickerProviderStateMixin {
-  /// Moitié de l'écran sur téléphone, plafonnée pour qu'un grand écran n'ait
-  /// pas un panneau démesuré.
-  static const _maxWidth = 360.0;
+  /// Plafond de largeur : au-delà, un grand écran aurait un panneau démesuré.
+  static const _maxWidth = 420.0;
+
+  /// Part de l'écran prise sur téléphone, où le plafond ne tient pas. Le reste
+  /// laisse voir la carte, et rappelle que le panneau se referme.
+  static const _widthFraction = 0.72;
 
   static const _duration = Duration(milliseconds: 220);
 
@@ -51,9 +58,15 @@ class _AccountPanelState extends ConsumerState<AccountPanel>
 
   BackInterceptors? _back;
 
+  /// Vrai dès que le panneau a fini de se déplier. Un onglet dont l'état retenu
+  /// arrive en retard attend ce moment pour s'ouvrir : déplier une liste
+  /// pendant le glissement fait sauter l'animation.
+  bool _opened = false;
+
   @override
   void initState() {
     super.initState();
+    _anim.addStatusListener(_onAnimStatus);
     _anim.animateTo(1, curve: Curves.easeOutCubic);
 
     // Après le frame : `set` notifie le `BackScope`, et le registre se cherche
@@ -65,8 +78,14 @@ class _AccountPanelState extends ConsumerState<AccountPanel>
     });
   }
 
+  void _onAnimStatus(AnimationStatus status) {
+    if (_opened || status != AnimationStatus.completed) return;
+    setState(() => _opened = true);
+  }
+
   @override
   void dispose() {
+    _anim.removeStatusListener(_onAnimStatus);
     final back = _back;
     // Même raison, et l'arbre est verrouillé pendant `dispose`.
     WidgetsBinding.instance.addPostFrameCallback((_) => back?.set(this, null));
@@ -75,7 +94,7 @@ class _AccountPanelState extends ConsumerState<AccountPanel>
   }
 
   double _panelWidth() =>
-      math.min(_maxWidth, MediaQuery.sizeOf(context).width / 2);
+      math.min(_maxWidth, MediaQuery.sizeOf(context).width * _widthFraction);
 
   /// Replie le panneau vers le bord gauche, puis le retire.
   Future<void> _close() async {
@@ -135,29 +154,39 @@ class _AccountPanelState extends ConsumerState<AccountPanel>
                 child: SizedBox(
                   width: _panelWidth(),
                   height: double.infinity,
-                  child: Material(
-                    elevation: 8,
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: SafeArea(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                _AccountBox(
-                                  onClose: _close,
-                                  onSignOut: _signOut,
-                                ),
-                                Expanded(child: _Sections(onClose: _close)),
-                              ],
+                  // Le panneau se peint dans sa propre couche : le glissement
+                  // n'est plus qu'un décalage de cette couche, sans repeindre
+                  // son contenu à chaque frame.
+                  child: RepaintBoundary(
+                    child: Material(
+                      elevation: 8,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: SafeArea(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  _AccountBox(
+                                    onClose: _close,
+                                    onSignOut: _signOut,
+                                  ),
+                                  Expanded(
+                                    child: _Sections(
+                                      onClose: _close,
+                                      opened: _opened,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                        // La poignée du bord droit : ce qu'on tire pour
-                        // refermer. Dans sa propre colonne, pour qu'aucune
-                        // ligne ne passe dessous.
-                        const _SideHandle(),
-                      ],
+                          // La poignée du bord droit : ce qu'on tire pour
+                          // refermer. Dans sa propre colonne, pour qu'aucune
+                          // ligne ne passe dessous.
+                          const _SideHandle(),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -274,9 +303,12 @@ class _SideHandle extends StatelessWidget {
 
 /// Les trois onglets. Le panneau entier défile si on les ouvre tous.
 class _Sections extends ConsumerWidget {
-  const _Sections({required this.onClose});
+  const _Sections({required this.onClose, required this.opened});
 
   final VoidCallback onClose;
+
+  /// Le panneau a fini de se déplier.
+  final bool opened;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -287,18 +319,19 @@ class _Sections extends ConsumerWidget {
     return ListView(
       padding: const EdgeInsets.symmetric(vertical: 4),
       children: [
-        _RecentSection(onClose: onClose),
-        _FavoritesSection(userId: me, onClose: onClose),
-        _FollowingSection(userId: me, onClose: onClose),
+        _RecentSection(onClose: onClose, opened: opened),
+        _FavoritesSection(userId: me, onClose: onClose, opened: opened),
+        _FollowingSection(userId: me, onClose: onClose, opened: opened),
       ],
     );
   }
 }
 
 class _RecentSection extends ConsumerWidget {
-  const _RecentSection({required this.onClose});
+  const _RecentSection({required this.onClose, required this.opened});
 
   final VoidCallback onClose;
+  final bool opened;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -308,6 +341,7 @@ class _RecentSection extends ConsumerWidget {
       id: 'recent',
       icon: Icons.history,
       title: 'Récent',
+      opened: opened,
       children: [
         for (final trip in trips)
           _TripRow(
@@ -323,19 +357,25 @@ class _RecentSection extends ConsumerWidget {
 }
 
 class _FavoritesSection extends ConsumerWidget {
-  const _FavoritesSection({required this.userId, required this.onClose});
+  const _FavoritesSection({
+    required this.userId,
+    required this.onClose,
+    required this.opened,
+  });
 
   final UserId? userId;
   final VoidCallback onClose;
+  final bool opened;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final id = userId;
     if (id == null) {
-      return const _Section(
+      return _Section(
         id: 'favorites',
         icon: Icons.bookmark_border,
         title: 'Favoris',
+        opened: opened,
       );
     }
 
@@ -346,6 +386,7 @@ class _FavoritesSection extends ConsumerWidget {
       id: 'favorites',
       icon: Icons.bookmark_border,
       title: 'Favoris',
+      opened: opened,
       trailing: trips.isEmpty
           ? _statusIcon(
               context,
@@ -368,19 +409,25 @@ class _FavoritesSection extends ConsumerWidget {
 }
 
 class _FollowingSection extends ConsumerWidget {
-  const _FollowingSection({required this.userId, required this.onClose});
+  const _FollowingSection({
+    required this.userId,
+    required this.onClose,
+    required this.opened,
+  });
 
   final UserId? userId;
   final VoidCallback onClose;
+  final bool opened;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final id = userId;
     if (id == null) {
-      return const _Section(
+      return _Section(
         id: 'following',
         icon: Icons.people_outline,
         title: 'Abonnements',
+        opened: opened,
       );
     }
 
@@ -392,6 +439,7 @@ class _FollowingSection extends ConsumerWidget {
       id: 'following',
       icon: Icons.people_outline,
       title: 'Abonnements',
+      opened: opened,
       trailing: users.isEmpty
           ? _statusIcon(
               context,
@@ -426,11 +474,12 @@ class _FollowingSection extends ConsumerWidget {
 ///
 /// [trailing] dit au bout de la ligne ce qui empêche de déplier autre chose
 /// qu'un vide : un chargement en cours, un échec.
-class _Section extends ConsumerWidget {
+class _Section extends ConsumerStatefulWidget {
   const _Section({
     required this.id,
     required this.icon,
     required this.title,
+    required this.opened,
     this.trailing,
     this.children = const [],
   });
@@ -440,6 +489,11 @@ class _Section extends ConsumerWidget {
 
   final IconData icon;
   final String title;
+
+  /// Le panneau a fini de se déplier. Tant que c'est faux, un onglet dont
+  /// l'état retenu n'était pas connu au montage reste fermé.
+  final bool opened;
+
   final Widget? trailing;
   final List<Widget> children;
 
@@ -449,70 +503,133 @@ class _Section extends ConsumerWidget {
   /// Lignes serrées : trois onglets doivent tenir sans repousser le reste.
   static const _minHeight = 40.0;
 
+  /// La hauteur d'une ligne de contenu, imposée à la liste plutôt que mesurée.
+  static const _rowHeight = 34.0;
+
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<_Section> createState() => _SectionState();
+}
+
+class _SectionState extends ConsumerState<_Section> {
+  /// L'ouverture est pilotée par ce contrôleur, et non par un remontage du
+  /// tuyau : `initiallyExpanded` ne joue qu'à la première construction.
+  final _tile = ExpansibleController();
+
+  /// L'état retenu tel qu'il était au montage. Normalement déjà lu, car
+  /// `SearchTopSheet` le demande au disque bien avant le premier tap : le tuyau
+  /// se monte alors directement dans le bon état, sans animation. S'il manque
+  /// encore, l'onglet se monte fermé et [_openLate] l'ouvrira.
+  Map<String, bool>? _initial;
+
+  /// Pour que [_openLate] n'agisse qu'une fois : après, c'est l'utilisateur qui
+  /// commande.
+  bool _late = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _initial = ref.read(panelSectionsProvider);
+  }
+
+  @override
+  void dispose() {
+    _tile.dispose();
+    super.dispose();
+  }
+
+  /// Fermé tant que l'état retenu manque : l'ouvrir maintenant obligerait à
+  /// le refermer un instant plus tard, en pleine animation du panneau.
+  bool get _initiallyExpanded {
+    final initial = _initial;
+    if (initial == null) return false;
+    return initial[widget.id] ?? true;
+  }
+
+  /// Ouvre l'onglet que l'état retenu dit ouvert, une fois le panneau déplié.
+  void _openLate(Map<String, bool>? sections) {
+    if (_late || _initial != null || !widget.opened || sections == null) return;
+    _late = true;
+    if (sections[widget.id] ?? true) {
+      // Hors du build : `expand()` reconstruit le tuyau.
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) _tile.expand();
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final style = theme.textTheme.labelLarge;
+    // Dans le cas normal l'état retenu est déjà là au montage, et ce `watch`
+    // ne déclenche aucune reconstruction : `SearchTopSheet` l'a demandé au
+    // disque bien avant le premier tap.
     final sections = ref.watch(panelSectionsProvider);
 
-    if (children.isEmpty) {
+    if (widget.children.isEmpty) {
       return ListTile(
         dense: true,
         visualDensity: VisualDensity.compact,
-        minTileHeight: _minHeight,
+        minTileHeight: _Section._minHeight,
         leading: Icon(
-          icon,
+          widget.icon,
           size: 20,
           color: theme.colorScheme.onSurfaceVariant,
         ),
         title: Text(
-          title,
+          widget.title,
           style: style?.copyWith(color: theme.colorScheme.onSurfaceVariant),
         ),
-        trailing: trailing,
+        trailing: widget.trailing,
       );
     }
 
-    return KeyedSubtree(
-      // `initiallyExpanded` ne joue qu'à la première construction, or l'état
-      // retenu arrive du disque un instant plus tard. Cette clé change à ce
-      // moment-là, et à ce moment-là seulement : le tuyau se reconstruit donc
-      // une fois, dans le bon état, et les ouvertures suivantes gardent leur
-      // animation.
-      key: ValueKey(sections != null),
-      child: ExpansionTile(
-        dense: true,
-        visualDensity: VisualDensity.compact,
-        minTileHeight: _minHeight,
-        // Sans ça, un onglet ouvert se borde de deux liserés.
-        shape: const Border(),
-        collapsedShape: const Border(),
-        initiallyExpanded: sections?[id] ?? true,
-        onExpansionChanged: (open) =>
-            ref.read(panelSectionsProvider.notifier).setOpen(id, open: open),
-        // Le décalage du conteneur par rapport au titre.
-        childrenPadding: const EdgeInsets.only(left: 16, right: 8, bottom: 8),
-        leading: Icon(icon, size: 20),
-        title: Text(title, style: style),
-        children: [
-          // Material, et non un simple fond coloré : les ListTile de la liste
-          // peignent leur fond et leurs ondes sur le Material le plus proche,
-          // qu'un DecoratedBox intercalé masquerait.
-          Material(
-            color: theme.colorScheme.surfaceContainerHigh,
-            borderRadius: BorderRadius.circular(12),
-            clipBehavior: Clip.antiAlias,
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxHeight: _maxHeight),
-              child: ListView(
-                shrinkWrap: true,
-                padding: const EdgeInsets.symmetric(vertical: 4),
-                children: children,
-              ),
+    _openLate(sections);
+
+    return ExpansionTile(
+      controller: _tile,
+      initiallyExpanded: _initiallyExpanded,
+      dense: true,
+      visualDensity: VisualDensity.compact,
+      minTileHeight: _Section._minHeight,
+      // Sans ça, un onglet ouvert se borde de deux liserés.
+      shape: const Border(),
+      collapsedShape: const Border(),
+      onExpansionChanged: (open) => ref
+          .read(panelSectionsProvider.notifier)
+          .setOpen(widget.id, open: open),
+      // Le décalage du conteneur par rapport au titre.
+      childrenPadding: const EdgeInsets.only(left: 16, right: 8, bottom: 8),
+      leading: Icon(widget.icon, size: 20),
+      title: Text(widget.title, style: style),
+      children: [
+        // Material, et non un simple fond coloré : les ListTile de la liste
+        // peignent leur fond et leurs ondes sur le Material le plus proche,
+        // qu'un DecoratedBox intercalé masquerait.
+        Material(
+          color: theme.colorScheme.surfaceContainerHigh,
+          borderRadius: BorderRadius.circular(12),
+          clipBehavior: Clip.antiAlias,
+          child: SizedBox(
+            // Hauteur déduite du nombre de lignes, et hauteur de ligne imposée
+            // à la liste : celle-ci n'a plus à mesurer ses lignes pour se
+            // dimensionner (`shrinkWrap`), donc elle ne monte que les lignes
+            // visibles. Ce qui arrive en cours de route — un chargement qui
+            // aboutit, une photo de profil qui se décode — ne coûte alors plus
+            // une mise en page de toute la liste.
+            height: math.min(
+              _Section._maxHeight,
+              widget.children.length * _Section._rowHeight + 8,
+            ),
+            child: ListView.builder(
+              padding: const EdgeInsets.symmetric(vertical: 4),
+              itemExtent: _Section._rowHeight,
+              itemCount: widget.children.length,
+              itemBuilder: (_, i) => widget.children[i],
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
@@ -599,7 +716,12 @@ class _UserRow extends StatelessWidget {
       contentPadding: const EdgeInsets.symmetric(horizontal: 10),
       leading: CircleAvatar(
         radius: 10,
-        backgroundImage: imageUrl == null ? null : NetworkImage(imageUrl),
+        // Décodée à la taille où elle s'affiche, et non à celle du fichier :
+        // une photo de profil pleine résolution décodée pour 20 px coûte une
+        // frame, et il y en a une par ligne.
+        backgroundImage: imageUrl == null
+            ? null
+            : ResizeImage(NetworkImage(imageUrl), width: 64),
         child: imageUrl == null
             ? const Icon(Icons.person_outline, size: 12)
             : null,

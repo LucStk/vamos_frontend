@@ -8,6 +8,7 @@ import 'package:vamos_cartographie/map/engine/mode_machine.dart';
 import 'package:vamos_cartographie/map/modes/shared/search_panel.dart';
 import 'package:vamos_cartographie/map/ui/chrome/account_button.dart';
 import 'package:vamos_cartographie/map/ui/chrome/account_panel.dart';
+import 'package:vamos_cartographie/map/ui/chrome/panel_sections_provider.dart';
 import 'package:material_ui/material_ui.dart';
 
 /// Les deux boutons du haut de la carte, collés en haut à gauche : le compte
@@ -27,6 +28,17 @@ class SearchTopSheet extends ConsumerStatefulWidget {
 class _SearchTopSheetState extends ConsumerState<SearchTopSheet> {
   final _search = OverlayPortalController();
   final _account = OverlayPortalController();
+
+  @override
+  void initState() {
+    super.initState();
+    // L'état des onglets du panneau de compte vient du disque. On le demande
+    // dès maintenant, pendant que la carte est au repos : s'il arrivait
+    // pendant que le panneau se déplie, les onglets changeraient d'état en
+    // pleine animation. Le provider est `keepAlive`, une lecture suffit pour
+    // toute la session.
+    ref.read(panelSectionsProvider);
+  }
 
   void _onPlaceSelected(PlaceResult r) {
     _search.hide();
