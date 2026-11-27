@@ -168,7 +168,11 @@ class _PreviewPanel extends ConsumerWidget {
           proposalId: mode.preview.proposalId,
           mobility: mobilityType,
         ),
-        SketchWays(tripId: mode.tripId, proposalId: mode.preview.proposalId),
+        SketchWays(
+          tripId: mode.tripId,
+          proposalId: mode.preview.proposalId,
+          mobility: mobilityType,
+        ),
       ],
     );
   }

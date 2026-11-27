@@ -40,15 +40,18 @@ class SketchElevation extends ConsumerWidget {
           height: _chartHeight,
           child: Center(child: CircularProgressIndicator(strokeWidth: 2)),
         ),
-        error: (_, _) => Text(
-          'Dénivelé indisponible.',
-          style: theme.textTheme.bodySmall?.copyWith(
-            color: theme.colorScheme.onSurfaceVariant,
-          ),
+        error: (e, _) => _note(
+          theme,
+          e is Failure
+              ? 'Dénivelé indisponible : ${e.message}'
+              : 'Dénivelé indisponible.',
         ),
         data: (profile) {
+          // Le serveur n'a pas de profil pour ce tracé (service d'altitude sans
+          // données, par exemple) : on le dit, plutôt que de laisser un vide
+          // qu'on ne sait pas expliquer.
           if (profile == null || !profile.isDrawable) {
-            return const SizedBox.shrink();
+            return _note(theme, 'Dénivelé indisponible pour ce tracé.');
           }
           final figures = theme.textTheme.labelMedium;
           return Column(
@@ -77,4 +80,11 @@ class SketchElevation extends ConsumerWidget {
       ),
     );
   }
+
+  static Widget _note(ThemeData theme, String text) => Text(
+    text,
+    style: theme.textTheme.bodySmall?.copyWith(
+      color: theme.colorScheme.onSurfaceVariant,
+    ),
+  );
 }

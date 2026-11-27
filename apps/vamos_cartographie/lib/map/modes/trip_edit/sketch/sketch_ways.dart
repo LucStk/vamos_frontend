@@ -7,21 +7,45 @@ import 'package:vamos_cartographie/map/entities/trip/sheet_pages/stats/route_ins
 import 'package:vamos_cartographie/map/objects/sketch_trace/sketch_trace.dart';
 
 /// Légende du type de route que le tracé colore, pour juger du danger d'un
-/// itinéraire à vélo : une pastille par catégorie, avec la distance. Rien
-/// hors vélo, ni tant que le serveur n'a pas répondu.
+/// itinéraire à vélo : une pastille par catégorie, avec la distance.
+///
+/// Rien hors vélo : le serveur n'analyse la nature des voies que pour lui. À
+/// vélo, une absence se dit, pour qu'on ne la confonde pas avec un oubli.
 class SketchWays extends ConsumerWidget {
-  const SketchWays({super.key, required this.tripId, required this.proposalId});
+  const SketchWays({
+    super.key,
+    required this.tripId,
+    required this.proposalId,
+    required this.mobility,
+  });
 
   final TripId tripId;
   final Id proposalId;
+  final MobilityType mobility;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    if (mobility != MobilityType.bike) return const SizedBox.shrink();
+
     final ways = ref.watch(
       proposalWaysProvider((tripId: tripId, proposalId: proposalId)),
     );
+    final theme = Theme.of(context);
+
+    if (ways.isLoading) return const SizedBox.shrink();
+    final failure = ways.error;
+    if (failure != null) {
+      return _note(
+        theme,
+        failure is Failure
+            ? 'Type de route indisponible : ${failure.message}'
+            : 'Type de route indisponible.',
+      );
+    }
     final spans = ways.value;
-    if (spans == null || spans.isEmpty) return const SizedBox.shrink();
+    if (spans == null || spans.isEmpty) {
+      return _note(theme, 'Type de route indisponible pour ce tracé.');
+    }
 
     final lengths = <String, double>{};
     for (final s in spans) {
@@ -34,7 +58,6 @@ class SketchWays extends ConsumerWidget {
     final ordered = lengths.entries.toList()
       ..sort((a, b) => b.value.compareTo(a.value));
 
-    final theme = Theme.of(context);
     return Padding(
       padding: const EdgeInsets.only(top: 12),
       child: Wrap(
@@ -64,6 +87,16 @@ class SketchWays extends ConsumerWidget {
       ),
     );
   }
+
+  static Widget _note(ThemeData theme, String text) => Padding(
+    padding: const EdgeInsets.only(top: 12),
+    child: Text(
+      text,
+      style: theme.textTheme.bodySmall?.copyWith(
+        color: theme.colorScheme.onSurfaceVariant,
+      ),
+    ),
+  );
 
   static String _label(String key) => switch (key) {
     'separated' => cycleLabel('separated'),
