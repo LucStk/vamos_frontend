@@ -7,6 +7,8 @@ import 'package:vamos_cartographie/map/engine/mode_machine.dart';
 import 'package:vamos_cartographie/map/modes/shared/cursor_panel.dart';
 import 'package:vamos_cartographie/map/modes/shared/mobility_type_menu.dart';
 import 'package:vamos_cartographie/map/modes/trip_edit/sketch/providers/sketch_mobility_type_provider.dart';
+import 'package:vamos_cartographie/map/modes/trip_edit/sketch/sketch_elevation.dart';
+import 'package:vamos_cartographie/map/modes/trip_edit/sketch/sketch_ways.dart';
 import 'package:vamos_cartographie/map/ui/chrome/toolbox/tool_panel.dart';
 
 /// Panneau de l'outil « Tracer » ([SketchToolMode]) : le tracé
@@ -42,14 +44,15 @@ class _EditionPanel extends ConsumerWidget {
     final mobilityType = ref.watch(sketchMobilityTypeProvider);
     final cursor = ref.watch(modeSlotProvider(searchResultMarkerSlot));
 
-    // Un curseur et rien de tracé : on propose d'y aller, ou d'y créer une
-    // étape. Dès qu'un tracé existe, c'est lui le sujet.
-    if (cursor != null && sketch == null) {
+    // Un curseur : on propose d'y générer une route (depuis le crayon s'il y en
+    // a un, depuis la fin de la route sinon), ou d'y créer une étape.
+    if (cursor != null) {
       return CursorPanel(
         tripId: mode.tripId,
         cursor: cursor,
         canTrace: true,
         canCreateWaypoint: true,
+        pencil: sketch,
         error: mode.failure?.message,
       );
     }
@@ -97,8 +100,8 @@ class _EditionPanel extends ConsumerWidget {
   }
 }
 
-/// Itinéraire prévisualisé : le valider, revenir au tracé, ou en demander un
-/// autre avec une autre mobilité.
+/// Itinéraire prévisualisé : le valider, le supprimer, revenir au tracé, en
+/// demander un autre avec une autre mobilité, ou le prolonger jusqu'au curseur.
 class _PreviewPanel extends ConsumerWidget {
   const _PreviewPanel(this.mode);
 
@@ -107,8 +110,20 @@ class _PreviewPanel extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final mobilityType = ref.watch(sketchMobilityTypeProvider);
+    final cursor = ref.watch(modeSlotProvider(searchResultMarkerSlot));
 
-    return ToolPanel(
+    // Un curseur : on propose d'y prolonger l'itinéraire, depuis le crayon.
+    if (cursor != null) {
+      return CursorPanel(
+        tripId: mode.tripId,
+        cursor: cursor,
+        canTrace: true,
+        pencil: ref.watch(modeSlotProvider(sketchTraceSlot)),
+        error: mode.error?.message,
+      );
+    }
+
+    final panel = ToolPanel(
       error: mode.error?.message,
       settings: [
         MobilityTypeMenu(
@@ -123,6 +138,12 @@ class _PreviewPanel extends ConsumerWidget {
           label: 'Recalculer',
           onPressed: () => ref.applyTransition(mode.recalculate(mobilityType)),
         ),
+        ToolAction(
+          icon: Icons.delete_outline,
+          label: 'Supprimer l’itinéraire',
+          destructive: true,
+          onPressed: () => ref.applyTransition(mode.delete()),
+        ),
       ],
       secondary: ToolAction(
         icon: Icons.edit_outlined,
@@ -134,6 +155,21 @@ class _PreviewPanel extends ConsumerWidget {
         label: 'Ajouter',
         onPressed: () => ref.applyTransition(mode.commit()),
       ),
+    );
+
+    // Le profil d'élévation et le type de route, en bas du panneau.
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        panel,
+        SketchElevation(
+          tripId: mode.tripId,
+          proposalId: mode.preview.proposalId,
+          mobility: mobilityType,
+        ),
+        SketchWays(tripId: mode.tripId, proposalId: mode.preview.proposalId),
+      ],
     );
   }
 }

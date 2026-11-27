@@ -32,19 +32,29 @@ final class SketchGenerating extends SketchToolMode {
   /// à la route, puis ouvre [SketchPreviewing]. En cas d'échec, retour au
   /// tracé. Depuis [SketchEdition] comme depuis [SketchPreviewing] (autre
   /// prévisualisation, avec d'autres options).
-  static Transition preview(TripId tripId, MobilityType mobilityType) =>
-      Transition.withSlot<SketchTrace>(sketchTraceSlot, (trace) {
-        if (!trace.hasSegment) return Transition.stay();
-        return previewTrace(tripId, trace, mobilityType);
-      });
+  ///
+  /// [directRoute] : voir [previewTrace].
+  static Transition preview(
+    TripId tripId,
+    MobilityType mobilityType, {
+    bool directRoute = false,
+  }) => Transition.withSlot<SketchTrace>(sketchTraceSlot, (trace) {
+    if (!trace.hasSegment) return Transition.stay();
+    return previewTrace(tripId, trace, mobilityType, directRoute: directRoute);
+  });
 
   /// Idem pour un tracé donné, qui devient celui du slot : on y revient si
   /// l'on abandonne l'aperçu.
+  ///
+  /// [directRoute] : les points du tracé sont les passages d'un vrai calcul
+  /// d'itinéraire (route générée vers un point), et non un tracé dessiné à
+  /// coller au réseau. [SketchPreviewing] s'en souvient pour recalculer.
   static Transition previewTrace(
     TripId tripId,
     SketchTrace trace,
-    MobilityType mobilityType,
-  ) {
+    MobilityType mobilityType, {
+    bool directRoute = false,
+  }) {
     final generating = SketchGenerating(tripId, SketchEdition(tripId));
 
     return Transition.to(generating)
@@ -54,6 +64,7 @@ final class SketchGenerating extends SketchToolMode {
             tripId: tripId,
             mobilityType: mobilityType,
             sketch: trace,
+            directRoute: directRoute,
           ),
           then: (current, result) {
             final m = current.mode;
@@ -65,8 +76,13 @@ final class SketchGenerating extends SketchToolMode {
               (failure) => Transition.to(
                 SketchEdition(tripId, failure: failure),
               ), // retour au tracé
-              (preview) =>
-                  Transition.to(SketchPreviewing(tripId, preview: preview)),
+              (preview) => Transition.to(
+                SketchPreviewing(
+                  tripId,
+                  preview: preview,
+                  directRoute: directRoute,
+                ),
+              ),
             );
           },
         );

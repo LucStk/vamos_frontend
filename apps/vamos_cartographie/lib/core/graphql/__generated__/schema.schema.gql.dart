@@ -112,6 +112,7 @@ class GEditRouteInput {
     this.end = const Value.absent(),
     this.mobilityType = const Value.absent(),
     required this.autoRoute,
+    required this.directRoute,
     this.basedOn = const Value.absent(),
   });
 
@@ -138,6 +139,7 @@ class GEditRouteInput {
               : GMobilityType.fromJson((json['mobilityType'] as String)))
           : Value.absent(),
       autoRoute: (json['autoRoute'] as bool),
+      directRoute: (json['directRoute'] as bool),
       basedOn: json.containsKey('basedOn')
           ? Value.present(
               json['basedOn'] == null ? null : (json['basedOn'] as String))
@@ -154,6 +156,8 @@ class GEditRouteInput {
   final Value<GMobilityType> mobilityType;
 
   final bool autoRoute;
+
+  final bool directRoute;
 
   final Value<String> basedOn;
 
@@ -181,6 +185,8 @@ class GEditRouteInput {
     }
     final _$autoRouteValue = this.autoRoute;
     _$result['autoRoute'] = _$autoRouteValue;
+    final _$directRouteValue = this.directRoute;
+    _$result['directRoute'] = _$directRouteValue;
     final _$basedOnValue = this.basedOn;
     if (_$basedOnValue.isPresent) {
       final _$basedOnRequired = _$basedOnValue.requireValue;
@@ -196,6 +202,7 @@ class GEditRouteInput {
     Value<GRouteAnchorInput>? end,
     Value<GMobilityType>? mobilityType,
     bool? autoRoute,
+    bool? directRoute,
     Value<String>? basedOn,
   }) {
     return GEditRouteInput(
@@ -204,6 +211,7 @@ class GEditRouteInput {
       end: end ?? this.end,
       mobilityType: mobilityType ?? this.mobilityType,
       autoRoute: autoRoute ?? this.autoRoute,
+      directRoute: directRoute ?? this.directRoute,
       basedOn: basedOn ?? this.basedOn,
     );
   }
@@ -222,7 +230,7 @@ class GEditRouteInput {
 
   @override
   String toString() {
-    return 'GEditRouteInput(points: $points, start: $start, end: $end, mobilityType: $mobilityType, autoRoute: $autoRoute, basedOn: $basedOn)';
+    return 'GEditRouteInput(points: $points, start: $start, end: $end, mobilityType: $mobilityType, autoRoute: $autoRoute, directRoute: $directRoute, basedOn: $basedOn)';
   }
 }
 

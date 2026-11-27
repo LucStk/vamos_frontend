@@ -42,8 +42,9 @@ class SketchEdition extends SketchToolMode {
     _ => Transition.stay(),
   };
 
-  /// Toucher la position de l'utilisateur y pose le curseur. Sans tracé en
-  /// cours, toucher une étape ou la carte passe à l'édition.
+  /// Toucher la carte ou la position de l'utilisateur y pose le curseur, d'où
+  /// le panneau propose de générer une route. Sans tracé en cours, toucher une
+  /// étape passe à l'édition.
   @override
   Transition onTap(TapGesture g) =>
       CursorActions.onTap(g) ??
@@ -156,7 +157,8 @@ class SketchEdition extends SketchToolMode {
     points: from.object is MapTripStart ? [from.point, cursor] : [cursor],
   );
 
-  /// Itinéraire calculé de [from] jusqu'au curseur, en aperçu à valider.
+  /// Itinéraire calculé de [from] jusqu'au curseur, en aperçu à valider. C'est
+  /// un vrai calcul d'itinéraire, pas un tracé collé au réseau.
   static Transition routeToCursor(
     TripId tripId,
     HitObject<RouteElements> from,
@@ -166,6 +168,31 @@ class SketchEdition extends SketchToolMode {
     tripId,
     _traceToCursor(from, cursor),
     mobilityType,
+    directRoute: true,
+  ).clearSlot(searchResultMarkerSlot);
+
+  /// Itinéraire calculé de la pointe du crayon ([trace]) jusqu'au curseur : ce
+  /// qui est déjà tracé devient des passages, le crayon se pose sur le curseur.
+  /// L'arrivée accrochée à la route est abandonnée : le tracé va au curseur.
+  static Transition routeFromPencil(
+    TripId tripId,
+    SketchTrace trace,
+    WorldOffset cursor,
+    MobilityType mobilityType,
+  ) => SketchGenerating.previewTrace(
+    tripId,
+    trace.detached().copyWith(
+      points: [
+        // Une route sans point : l'origine fait partie du tracé, comme dans
+        // [startFromOrigin].
+        if (trace.points.isEmpty && trace.startAnchor.object is MapTripStart)
+          trace.startAnchor.point,
+        ...trace.points,
+        cursor,
+      ],
+    ),
+    mobilityType,
+    directRoute: true,
   ).clearSlot(searchResultMarkerSlot);
 
   /// Ligne droite de [from] jusqu'au curseur, écrite directement.
@@ -180,18 +207,6 @@ class SketchEdition extends SketchToolMode {
     mobilityType,
     consumesCursor: true,
   );
-
-  /// Ouvre l'outil de tracé avec une ligne droite de [from] jusqu'au curseur,
-  /// à valider telle quelle ou à faire router depuis le panneau. Le curseur est
-  /// consommé : le tracé le remplace.
-  static Transition sketchToCursor(
-    TripId tripId,
-    HitObject<RouteElements> from,
-    WorldOffset cursor,
-    MobilityType mobilityType,
-  ) => Transition.to(SketchEdition(tripId))
-      .and(sketchTraceSlot, _traceToCursor(from, cursor))
-      .clearSlot(searchResultMarkerSlot);
 
   /// Ouvre l'outil de tracé, le crayon posé sur [from] (le curseur). Si la
   /// route n'a pas encore de point ([originOnly]), l'origine ouvre le tracé,

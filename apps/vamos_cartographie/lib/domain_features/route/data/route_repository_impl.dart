@@ -28,6 +28,28 @@ class RouteRepositoryImpl extends RouteRepository {
   );
 
   @override
+  Future<Either<Failure, ElevationProfile?>> fetchProposalElevation({
+    required TripId tripId,
+    required Id proposalId,
+  }) => guard(
+    () async => (await remote.fetchProposalElevation(
+      tripId: tripId,
+      proposalId: proposalId,
+    ))?.toDomain(),
+  );
+
+  @override
+  Future<Either<Failure, List<WaySpan>?>> fetchProposalWays({
+    required TripId tripId,
+    required Id proposalId,
+  }) => guard(
+    () async => (await remote.fetchProposalWays(
+      tripId: tripId,
+      proposalId: proposalId,
+    ))?.toDomain(),
+  );
+
+  @override
   Future<Either<Failure, EditRoutePayload>> setTripOrigin({
     required TripId tripId,
     required LatLng position,
@@ -133,6 +155,7 @@ class RouteRepositoryImpl extends RouteRepository {
     MobilityType? mobilityType,
     RouteAnchor? startAnchor,
     RouteAnchor? endAnchor,
+    bool directRoute = false,
   }) async {
     final res = await guardRouteEdit(
       () => remote.previewRouteEdit(
@@ -141,6 +164,7 @@ class RouteRepositoryImpl extends RouteRepository {
         mobilityType: mobilityType,
         startAnchor: startAnchor,
         endAnchor: endAnchor,
+        directRoute: directRoute,
       ),
     );
     return res.flatMap((m) => m.toDomain());

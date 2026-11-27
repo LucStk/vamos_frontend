@@ -39,6 +39,36 @@ class RouteRemoteDatasource {
     return data.recomputeRouteInsights;
   }
 
+  Future<GElevationProfileFields?> fetchProposalElevation({
+    required TripId tripId,
+    required Id proposalId,
+  }) async {
+    final data = await ferryClient.execute(
+      GFetchProposalElevationReq(
+        vars: GFetchProposalElevationVars(
+          tripId: tripId.value,
+          proposalId: proposalId.value,
+        ),
+      ),
+    );
+    return data.routeProposalElevation;
+  }
+
+  Future<GProposalWaysFields?> fetchProposalWays({
+    required TripId tripId,
+    required Id proposalId,
+  }) async {
+    final data = await ferryClient.execute(
+      GFetchProposalWaysReq(
+        vars: GFetchProposalWaysVars(
+          tripId: tripId.value,
+          proposalId: proposalId.value,
+        ),
+      ),
+    );
+    return data.routeProposalWays;
+  }
+
   Future<GEditRouteResult> setTripOrigin({
     required Id<Trip> tripId,
     required LatLng position,
@@ -68,6 +98,7 @@ class RouteRemoteDatasource {
           tripId: tripId.value,
           input: GEditRouteInput(
             autoRoute: autoRoute,
+            directRoute: false,
             mobilityType: toFerryValue(mobilityType?.toGQL()),
             points: geometry.toGQLInput(),
             start: toFerryValue(startAnchor?.toGQL()),
@@ -161,6 +192,7 @@ class RouteRemoteDatasource {
     MobilityType? mobilityType,
     RouteAnchor? startAnchor,
     RouteAnchor? endAnchor,
+    bool directRoute = false,
   }) async {
     final data = await ferryClient.execute(
       GPreviewRouteEditReq(
@@ -168,6 +200,7 @@ class RouteRemoteDatasource {
           tripId: tripId.value,
           input: GEditRouteInput(
             autoRoute: true,
+            directRoute: directRoute,
             mobilityType: toFerryValue(mobilityType?.toGQL()),
             points: geometry.toGQLInput(),
             start: toFerryValue(startAnchor?.toGQL()),

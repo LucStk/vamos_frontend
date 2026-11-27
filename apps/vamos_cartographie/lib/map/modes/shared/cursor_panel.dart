@@ -18,9 +18,11 @@ import 'package:vamos_cartographie/map/ui/chrome/toolbox/tool_panel.dart';
 /// - [canTrace] : relier la fin de la route (ou l'origine d'un voyage sans
 ///   route) au curseur, par un itinéraire ou en ligne droite ;
 /// - [canCreateWaypoint] : créer une étape sur le curseur ;
-/// - [sketchTrace] : le tracé passe par l'outil « Tracer » (ligne droite
-///   depuis la fin de la route, à valider ou à faire router depuis son
-///   panneau) au lieu d'un calcul ou d'une écriture immédiats ;
+/// - [sketchTrace] : on entre dans l'outil « Tracer » avec l'itinéraire
+///   jusqu'au curseur déjà calculé (en croquis, à valider ou à supprimer), le
+///   crayon posé sur le curseur ;
+/// - [pencil] : le tracé en cours de l'outil « Tracer ». L'itinéraire généré
+///   part alors de sa pointe (le crayon) au lieu de la fin de la route ;
 /// - [showClear] : action « Retirer le curseur » (inutile quand la croix du
 ///   panneau fait déjà cela).
 @Dependencies([modeSelection, ModeMachine])
@@ -32,6 +34,7 @@ class CursorPanel extends ConsumerWidget {
     this.canTrace = false,
     this.canCreateWaypoint = false,
     this.sketchTrace = false,
+    this.pencil,
     this.showClear = true,
     this.error,
   });
@@ -41,6 +44,7 @@ class CursorPanel extends ConsumerWidget {
   final bool canTrace;
   final bool canCreateWaypoint;
   final bool sketchTrace;
+  final SketchTrace? pencil;
   final bool showClear;
   final String? error;
 
@@ -77,6 +81,24 @@ class CursorPanel extends ConsumerWidget {
       final from = _traceStart(ref);
       if (from == null) return;
       ref.applyTransition(action(tripId, from, cursor.point, mobility));
+    }
+
+    // Itinéraire jusqu'au curseur : de la pointe du crayon s'il y en a un, de la
+    // fin de la route sinon.
+    void generateRoute() {
+      final fromPencil = pencil;
+      if (fromPencil != null) {
+        ref.applyTransition(
+          SketchEdition.routeFromPencil(
+            tripId,
+            fromPencil,
+            cursor.point,
+            mobility,
+          ),
+        );
+      } else {
+        trace(SketchEdition.routeToCursor);
+      }
     }
 
     final waypoint = ToolAction(
@@ -123,6 +145,7 @@ class CursorPanel extends ConsumerWidget {
 
     return ToolPanel(
       error: error,
+      hint: pencil != null ? 'Route depuis le crayon.' : null,
       settings: [
         if (canTrace)
           MobilityTypeMenu(
@@ -142,6 +165,9 @@ class CursorPanel extends ConsumerWidget {
       secondary: canTrace
           ? sketchTrace
                 ? waypoint
+                : pencil != null
+                // La ligne droite part de la fin de la route, pas du crayon.
+                ? null
                 : ToolAction(
                     icon: Icons.timeline,
                     label: 'Ligne droite',
@@ -153,12 +179,12 @@ class CursorPanel extends ConsumerWidget {
                 ? ToolAction(
                     icon: Icons.draw,
                     label: 'Tracer jusqu’à',
-                    onPressed: () => trace(SketchEdition.sketchToCursor),
+                    onPressed: () => trace(SketchEdition.routeToCursor),
                   )
                 : ToolAction(
                     icon: Icons.alt_route,
                     label: 'Calculer',
-                    onPressed: () => trace(SketchEdition.routeToCursor),
+                    onPressed: generateRoute,
                   )
           : canCreateWaypoint
           ? waypoint

@@ -313,6 +313,15 @@ const EditRouteInput = _i1.InputObjectTypeDefinitionNode(
       defaultValue: _i1.BooleanValueNode(value: true),
     ),
     _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'directRoute'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Boolean'),
+        isNonNull: true,
+      ),
+      defaultValue: _i1.BooleanValueNode(value: false),
+    ),
+    _i1.InputValueDefinitionNode(
       name: _i1.NameNode(value: 'basedOn'),
       directives: [],
       type: _i1.NamedTypeNode(

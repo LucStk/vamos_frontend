@@ -55,6 +55,7 @@ mixin RouteEditor on OptimisticRunner<RouteStore> {
     MobilityType? mobilityType,
     RouteAnchor? startAnchor,
     RouteAnchor? endAnchor,
+    bool directRoute = false,
   }) {
     return run<PreviewRoutePayload, TripId>(
       entityKey: tripId, // sérialise toutes les éditions de ce trip
@@ -65,6 +66,7 @@ mixin RouteEditor on OptimisticRunner<RouteStore> {
         geometry: geometry,
         startAnchor: startAnchor,
         endAnchor: endAnchor,
+        directRoute: directRoute,
       ),
     );
   }

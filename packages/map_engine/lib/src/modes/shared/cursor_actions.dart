@@ -24,10 +24,11 @@ abstract final class CursorActions {
   static Transition clear() =>
       Transition.set<SearchResultMarker>(searchResultMarkerSlot, null);
 
-  /// Toucher la position de l'utilisateur y pose le curseur ; null pour tout
-  /// autre tap, à traiter par le mode.
+  /// Toucher la position de l'utilisateur ou la carte vide y pose le curseur ;
+  /// null pour tout autre tap, à traiter par le mode.
   static Transition? onTap(TapGesture g) => switch (g.element) {
     MapLocalization(:final position) => place(position),
+    null => place(g.world),
     _ => null,
   };
 

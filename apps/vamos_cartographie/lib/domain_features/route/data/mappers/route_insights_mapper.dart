@@ -1,4 +1,5 @@
 import 'package:trip_application/trip_application.dart';
+import 'package:vamos_cartographie/core/mappers/geometry_mappers/position_mapper.dart';
 import 'package:vamos_cartographie/domain_features/route/data/graphql/graphql.dart';
 import 'package:vamos_cartographie/domain_features/route/data/mappers/mobility_type_mapper.dart';
 
@@ -36,4 +37,30 @@ extension RouteInsightsMapper on GRouteInsightsFields {
         ),
     ],
   );
+}
+
+extension ElevationProfileMapper on GElevationProfileFields {
+  ElevationProfile toDomain() => ElevationProfile(
+    points: [
+      for (final p in points)
+        ElevationPoint(distanceM: p.distanceM, elevationM: p.elevationM),
+    ],
+    ascentM: ascentM,
+    descentM: descentM,
+    minElevationM: minElevationM,
+    maxElevationM: maxElevationM,
+    lengthM: lengthM,
+  );
+}
+
+extension ProposalWaysMapper on GProposalWaysFields {
+  List<WaySpan> toDomain() => [
+    for (final s in spans)
+      WaySpan(
+        kind: s.kind,
+        cycle: s.cycle,
+        lengthM: s.lengthM,
+        coordinates: s.coordinates.toDomain(),
+      ),
+  ];
 }

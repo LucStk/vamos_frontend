@@ -76,6 +76,7 @@ input EditRouteInput {
   end: RouteAnchorInput = null
   mobilityType: MobilityType = null
   autoRoute: Boolean! = true
+  directRoute: Boolean! = false
   basedOn: DateTime = null
 }
 
@@ -97,6 +98,16 @@ type EditSpanType {
 type ElevationPointType {
   distanceM: Float!
   elevationM: Float!
+}
+
+"""Profil d'élévation d'un tracé qui n'est pas (encore) dans la route."""
+type ElevationProfileType {
+  ascentM: Float!
+  descentM: Float!
+  minElevationM: Float!
+  maxElevationM: Float!
+  lengthM: Float!
+  points: [ElevationPointType!]!
 }
 
 type FileAttachmentType {
@@ -233,6 +244,10 @@ type PreviewMobilitySpanType {
   mobilityType: MobilityType!
 }
 
+type ProposalWaysType {
+  spans: [WaySpanType!]!
+}
+
 type Query {
   trip(id: UUID!): TripType!
   trips: [TripType!]!
@@ -255,6 +270,8 @@ type Query {
   finalDayNote(tripId: UUID!): DayNoteType
   runNotes(tripId: UUID!): [RunNoteType!]!
   routeInsights(tripId: UUID!): RouteInsightsType
+  routeProposalElevation(tripId: UUID!, proposalId: UUID!): ElevationProfileType
+  routeProposalWays(tripId: UUID!, proposalId: UUID!): ProposalWaysType
 }
 
 input RangeMobilityInput {
@@ -468,6 +485,19 @@ input WaypointUpdateInput {
 type WayShareType {
   key: String!
   lengthM: Float!
+}
+
+"""
+Portion de tracé de nature constante, à dessiner sur la carte.
+
+`kind` et `cycle` prennent les valeurs de `WayShareType.key` ; `kind` vaut
+`unknown` là où le service n'a pas su rattacher le tracé au réseau.
+"""
+type WaySpanType {
+  kind: String!
+  cycle: String!
+  lengthM: Float!
+  coordinates: [LatLngType!]!
 }
 
 input TileInput {

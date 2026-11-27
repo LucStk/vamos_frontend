@@ -45,10 +45,27 @@ final class PreviewSketch
     required this.tripId,
     required this.mobilityType,
     required this.sketch,
+    this.directRoute = false,
   });
   final TripId tripId;
   final MobilityType mobilityType;
   final SketchTrace sketch;
+
+  /// `true` : les points du tracé sont des passages d'un vrai calcul
+  /// d'itinéraire (route générée vers un point) ; `false` : un tracé dessiné,
+  /// collé au réseau.
+  final bool directRoute;
+
+  /// Le tracé d'une route sans point commence par l'origine du voyage, que le
+  /// serveur ajoute lui-même : en calcul direct on ne la double pas (deux
+  /// passages confondus).
+  List<WorldOffset> get _points =>
+      directRoute &&
+          sketch.startAnchor.object is MapTripStart &&
+          sketch.points.isNotEmpty &&
+          sketch.points.first.value == sketch.startAnchor.point.value
+      ? sketch.points.sublist(1)
+      : sketch.points;
 
   @override
   Future<Either<Failure, PreviewRoutePayload>> handle(
@@ -57,10 +74,11 @@ final class PreviewSketch
       .forTrip(tripId)
       .routeEditor
       .previewRouteEdit(
-        geometry: sketch.points.toLatLngList(h.camera),
+        geometry: _points.toLatLngList(h.camera),
         mobilityType: mobilityType,
         startAnchor: sketch.startAnchor.toRouteAnchor(h.camera),
         endAnchor: sketch.endAnchor?.toRouteAnchor(h.camera),
+        directRoute: directRoute,
       );
 }
 

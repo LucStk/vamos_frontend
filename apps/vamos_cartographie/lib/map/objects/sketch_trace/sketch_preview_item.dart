@@ -4,12 +4,17 @@ import 'package:map_engine/map_engine.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/map/objects/route/segment/appearance/mobility_appearance.dart';
 import 'package:vamos_cartographie/map/objects/route/segment/style/segment_style.dart';
+import 'package:vamos_cartographie/map/objects/sketch_trace/sketch_segment_item.dart';
 
 /// Un tronçon de l'itinéraire prévisualisé, dessiné comme une section de la
-/// route (couleur de sa mobilité). Rien à toucher dessus : `SketchPreviewing`
-/// ignore les gestes.
+/// route (couleur de sa mobilité) ou, avec [sketchStyle], comme le tracé de
+/// l'outil « Tracer » (papier hachuré). Rien à toucher dessus.
 final class SketchPreviewItem extends LineItem {
-  SketchPreviewItem({required this.worldSegments, required this.mobilityType});
+  SketchPreviewItem({
+    required this.worldSegments,
+    required this.mobilityType,
+    this.sketchStyle = false,
+  });
 
   @override
   final MapSketchSegment object = const MapSketchSegment();
@@ -19,9 +24,14 @@ final class SketchPreviewItem extends LineItem {
 
   final MobilityType mobilityType;
 
-  /// Même épaisseur qu'une section de la route.
+  /// Dessiné comme le tracé de l'outil « Tracer » : le résultat du calcul reste
+  /// un croquis tant qu'il n'est pas validé.
+  final bool sketchStyle;
+
+  /// Même épaisseur qu'une section de la route, ou que le tracé si [sketchStyle]
+  /// (il faut de la place pour que les hachures se lisent).
   @override
-  ScreenLength get visualRadius => 3.25.px;
+  ScreenLength get visualRadius => sketchStyle ? 5.px : 3.25.px;
 
   @override
   ScreenLength get hitRadius => 14.px;
@@ -29,20 +39,23 @@ final class SketchPreviewItem extends LineItem {
   @override
   DrawCommand toDrawCommand({
     MapPaintContext context = const MapPaintContext(),
-  }) => SegmentStyle.build(
-    path,
-    MobilityAppearances.of(mobilityType),
-    SegmentStyle.resolver.resolve(context),
-    radius: visualRadius,
-  );
+  }) => sketchStyle
+      ? SketchSegmentStyle.build(path, radius: visualRadius)
+      : SegmentStyle.build(
+          path,
+          MobilityAppearances.of(mobilityType),
+          SegmentStyle.resolver.resolve(context),
+          radius: visualRadius,
+        );
 }
 
 /// Portions de [preview] produites par le tracé (`isNew`), une par couple
 /// (mobilité, édition). Le reste de la route est déjà à l'écran.
 List<SketchPreviewItem> sketchPreviewItems(
   PreviewRoutePayload preview,
-  MapCameraReader camera,
-) {
+  MapCameraReader camera, {
+  bool sketchStyle = false,
+}) {
   final coords = preview.coordinates;
   if (coords.length < 2) return const [];
   final last = coords.length - 1;
@@ -77,6 +90,7 @@ List<SketchPreviewItem> sketchPreviewItems(
           camera.latLngToWorldOffset,
         ),
         mobilityType: mobilityType,
+        sketchStyle: sketchStyle,
       ),
     );
   }

@@ -11,6 +11,22 @@ abstract class RouteRepository {
   /// Relance leur calcul (propriétaire seul) ; null si le trip n'a pas de route.
   Future<Either<Failure, RouteInsights?>> recomputeRouteInsights(TripId tripId);
 
+  /// Élévation de la portion que [proposalId] (un aperçu) ajouterait à la
+  /// route ; null s'il n'y en a pas (modalité non analysée, proposition
+  /// remplacée, pas d'altitude).
+  Future<Either<Failure, ElevationProfile?>> fetchProposalElevation({
+    required TripId tripId,
+    required Id proposalId,
+  });
+
+  /// Nature des voies de la portion que [proposalId] (un aperçu) ajouterait à
+  /// la route ; null s'il n'y en a pas (hors vélo, proposition remplacée, tracé
+  /// à main levée).
+  Future<Either<Failure, List<WaySpan>?>> fetchProposalWays({
+    required TripId tripId,
+    required Id proposalId,
+  });
+
   Future<Either<Failure, EditRoutePayload>> setTripOrigin({
     required TripId tripId,
     required LatLng position,
@@ -58,6 +74,10 @@ abstract class RouteRepository {
     MobilityType? mobilityType,
     RouteAnchor? startAnchor,
     RouteAnchor? endAnchor,
+
+    /// `true` : le serveur calcule le meilleur itinéraire entre les points
+    /// (passages) au lieu de coller au réseau un tracé dessiné.
+    bool directRoute = false,
   });
   Future<Either<Failure, EditRoutePayload>> commitRouteEdit({
     required Id<Trip> tripId,

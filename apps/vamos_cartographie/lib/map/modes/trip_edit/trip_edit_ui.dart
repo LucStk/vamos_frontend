@@ -80,6 +80,9 @@ class TripEditUi extends ConsumerWidget {
             child: SearchTopSheet(
               onPicked: switch (mode) {
                 final TripEditMode m => m.placeCursorAt,
+                // Dans l'outil « Tracer » : le point cherché devient le curseur,
+                // d'où l'on génère une route.
+                SketchEdition() || SketchPreviewing() => CursorActions.place,
                 _ => null,
               },
             ),
