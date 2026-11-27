@@ -81,3 +81,111 @@ class GRecomputeRouteInsightsVars {
     return 'GRecomputeRouteInsightsVars(tripId: $tripId)';
   }
 }
+
+class GFetchProposalElevationVars {
+  const GFetchProposalElevationVars({
+    required this.tripId,
+    required this.proposalId,
+  });
+
+  factory GFetchProposalElevationVars.fromJson(Map<String, dynamic> json) {
+    return GFetchProposalElevationVars(
+      tripId: (json['tripId'] as String),
+      proposalId: (json['proposalId'] as String),
+    );
+  }
+
+  final String tripId;
+
+  final String proposalId;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$tripIdValue = this.tripId;
+    _$result['tripId'] = _$tripIdValue;
+    final _$proposalIdValue = this.proposalId;
+    _$result['proposalId'] = _$proposalIdValue;
+    return _$result;
+  }
+
+  GFetchProposalElevationVars copyWith({
+    String? tripId,
+    String? proposalId,
+  }) {
+    return GFetchProposalElevationVars(
+      tripId: tripId ?? this.tripId,
+      proposalId: proposalId ?? this.proposalId,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GFetchProposalElevationVars &&
+            _gqlUtils.deepEquals(toJson(), other.toJson()));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
+  }
+
+  @override
+  String toString() {
+    return 'GFetchProposalElevationVars(tripId: $tripId, proposalId: $proposalId)';
+  }
+}
+
+class GFetchProposalWaysVars {
+  const GFetchProposalWaysVars({
+    required this.tripId,
+    required this.proposalId,
+  });
+
+  factory GFetchProposalWaysVars.fromJson(Map<String, dynamic> json) {
+    return GFetchProposalWaysVars(
+      tripId: (json['tripId'] as String),
+      proposalId: (json['proposalId'] as String),
+    );
+  }
+
+  final String tripId;
+
+  final String proposalId;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$tripIdValue = this.tripId;
+    _$result['tripId'] = _$tripIdValue;
+    final _$proposalIdValue = this.proposalId;
+    _$result['proposalId'] = _$proposalIdValue;
+    return _$result;
+  }
+
+  GFetchProposalWaysVars copyWith({
+    String? tripId,
+    String? proposalId,
+  }) {
+    return GFetchProposalWaysVars(
+      tripId: tripId ?? this.tripId,
+      proposalId: proposalId ?? this.proposalId,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GFetchProposalWaysVars &&
+            _gqlUtils.deepEquals(toJson(), other.toJson()));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
+  }
+
+  @override
+  String toString() {
+    return 'GFetchProposalWaysVars(tripId: $tripId, proposalId: $proposalId)';
+  }
+}

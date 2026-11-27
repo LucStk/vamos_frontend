@@ -3,6 +3,8 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 
+import 'package:vamos_cartographie/core/graphql/__generated__/geo_fields.data.gql.dart'
+    as _i2;
 import 'package:vamos_cartographie/core/graphql/__generated__/schema.schema.gql.dart'
     as _i1;
 import 'package:vamos_cartographie/core/graphql/__generated__/schema.utils.gql.dart'
@@ -609,6 +611,332 @@ class GRouteInsightsFieldsData_mobilities_cycleInfrastructure
   }
 }
 
+abstract class GElevationProfileFields {
+  double get ascentM;
+  double get descentM;
+  double get minElevationM;
+  double get maxElevationM;
+  double get lengthM;
+  List<GElevationProfileFields_points> get points;
+  String get G__typename;
+}
+
+abstract class GElevationProfileFields_points {
+  double get distanceM;
+  double get elevationM;
+  String get G__typename;
+}
+
+class GElevationProfileFieldsData implements GElevationProfileFields {
+  const GElevationProfileFieldsData({
+    required this.ascentM,
+    required this.descentM,
+    required this.minElevationM,
+    required this.maxElevationM,
+    required this.lengthM,
+    required this.points,
+    this.G__typename = 'ElevationProfileType',
+  });
+
+  factory GElevationProfileFieldsData.fromJson(Map<String, dynamic> json) {
+    return GElevationProfileFieldsData(
+      ascentM: (json['ascentM'] as num).toDouble(),
+      descentM: (json['descentM'] as num).toDouble(),
+      minElevationM: (json['minElevationM'] as num).toDouble(),
+      maxElevationM: (json['maxElevationM'] as num).toDouble(),
+      lengthM: (json['lengthM'] as num).toDouble(),
+      points: (json['points'] as List<dynamic>)
+          .map((_$e) => GElevationProfileFieldsData_points.fromJson(
+              (_$e as Map<String, dynamic>)))
+          .toList(),
+      G__typename: (json['__typename'] as String),
+    );
+  }
+
+  final double ascentM;
+
+  final double descentM;
+
+  final double minElevationM;
+
+  final double maxElevationM;
+
+  final double lengthM;
+
+  final List<GElevationProfileFieldsData_points> points;
+
+  final String G__typename;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    _$result['ascentM'] = this.ascentM;
+    _$result['descentM'] = this.descentM;
+    _$result['minElevationM'] = this.minElevationM;
+    _$result['maxElevationM'] = this.maxElevationM;
+    _$result['lengthM'] = this.lengthM;
+    _$result['points'] = this.points.map((_$e) => _$e.toJson()).toList();
+    _$result['__typename'] = this.G__typename;
+    return _$result;
+  }
+
+  GElevationProfileFieldsData copyWith({
+    double? ascentM,
+    double? descentM,
+    double? minElevationM,
+    double? maxElevationM,
+    double? lengthM,
+    List<GElevationProfileFieldsData_points>? points,
+    String? G__typename,
+  }) {
+    return GElevationProfileFieldsData(
+      ascentM: ascentM ?? this.ascentM,
+      descentM: descentM ?? this.descentM,
+      minElevationM: minElevationM ?? this.minElevationM,
+      maxElevationM: maxElevationM ?? this.maxElevationM,
+      lengthM: lengthM ?? this.lengthM,
+      points: points ?? this.points,
+      G__typename: G__typename ?? this.G__typename,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GElevationProfileFieldsData &&
+            ascentM == other.ascentM &&
+            descentM == other.descentM &&
+            minElevationM == other.minElevationM &&
+            maxElevationM == other.maxElevationM &&
+            lengthM == other.lengthM &&
+            _gqlUtils.listEquals(points, other.points) &&
+            G__typename == other.G__typename);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, ascentM, descentM, minElevationM,
+        maxElevationM, lengthM, _gqlUtils.listHash(points), G__typename);
+  }
+
+  @override
+  String toString() {
+    return 'GElevationProfileFieldsData(ascentM: $ascentM, descentM: $descentM, minElevationM: $minElevationM, maxElevationM: $maxElevationM, lengthM: $lengthM, points: $points, G__typename: $G__typename)';
+  }
+}
+
+class GElevationProfileFieldsData_points
+    implements GElevationProfileFields_points {
+  const GElevationProfileFieldsData_points({
+    required this.distanceM,
+    required this.elevationM,
+    this.G__typename = 'ElevationPointType',
+  });
+
+  factory GElevationProfileFieldsData_points.fromJson(
+      Map<String, dynamic> json) {
+    return GElevationProfileFieldsData_points(
+      distanceM: (json['distanceM'] as num).toDouble(),
+      elevationM: (json['elevationM'] as num).toDouble(),
+      G__typename: (json['__typename'] as String),
+    );
+  }
+
+  final double distanceM;
+
+  final double elevationM;
+
+  final String G__typename;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    _$result['distanceM'] = this.distanceM;
+    _$result['elevationM'] = this.elevationM;
+    _$result['__typename'] = this.G__typename;
+    return _$result;
+  }
+
+  GElevationProfileFieldsData_points copyWith({
+    double? distanceM,
+    double? elevationM,
+    String? G__typename,
+  }) {
+    return GElevationProfileFieldsData_points(
+      distanceM: distanceM ?? this.distanceM,
+      elevationM: elevationM ?? this.elevationM,
+      G__typename: G__typename ?? this.G__typename,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GElevationProfileFieldsData_points &&
+            distanceM == other.distanceM &&
+            elevationM == other.elevationM &&
+            G__typename == other.G__typename);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, distanceM, elevationM, G__typename);
+  }
+
+  @override
+  String toString() {
+    return 'GElevationProfileFieldsData_points(distanceM: $distanceM, elevationM: $elevationM, G__typename: $G__typename)';
+  }
+}
+
+abstract class GProposalWaysFields {
+  List<GProposalWaysFields_spans> get spans;
+  String get G__typename;
+}
+
+abstract class GProposalWaysFields_spans {
+  String get kind;
+  String get cycle;
+  double get lengthM;
+  List<_i2.GLatLng> get coordinates;
+  String get G__typename;
+}
+
+class GProposalWaysFieldsData implements GProposalWaysFields {
+  const GProposalWaysFieldsData({
+    required this.spans,
+    this.G__typename = 'ProposalWaysType',
+  });
+
+  factory GProposalWaysFieldsData.fromJson(Map<String, dynamic> json) {
+    return GProposalWaysFieldsData(
+      spans: (json['spans'] as List<dynamic>)
+          .map((_$e) => GProposalWaysFieldsData_spans.fromJson(
+              (_$e as Map<String, dynamic>)))
+          .toList(),
+      G__typename: (json['__typename'] as String),
+    );
+  }
+
+  final List<GProposalWaysFieldsData_spans> spans;
+
+  final String G__typename;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    _$result['spans'] = this.spans.map((_$e) => _$e.toJson()).toList();
+    _$result['__typename'] = this.G__typename;
+    return _$result;
+  }
+
+  GProposalWaysFieldsData copyWith({
+    List<GProposalWaysFieldsData_spans>? spans,
+    String? G__typename,
+  }) {
+    return GProposalWaysFieldsData(
+      spans: spans ?? this.spans,
+      G__typename: G__typename ?? this.G__typename,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GProposalWaysFieldsData &&
+            _gqlUtils.listEquals(spans, other.spans) &&
+            G__typename == other.G__typename);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.listHash(spans), G__typename);
+  }
+
+  @override
+  String toString() {
+    return 'GProposalWaysFieldsData(spans: $spans, G__typename: $G__typename)';
+  }
+}
+
+class GProposalWaysFieldsData_spans implements GProposalWaysFields_spans {
+  const GProposalWaysFieldsData_spans({
+    required this.kind,
+    required this.cycle,
+    required this.lengthM,
+    required this.coordinates,
+    this.G__typename = 'WaySpanType',
+  });
+
+  factory GProposalWaysFieldsData_spans.fromJson(Map<String, dynamic> json) {
+    return GProposalWaysFieldsData_spans(
+      kind: (json['kind'] as String),
+      cycle: (json['cycle'] as String),
+      lengthM: (json['lengthM'] as num).toDouble(),
+      coordinates: (json['coordinates'] as List<dynamic>)
+          .map((_$e) => _i2.GLatLngData.fromJson((_$e as Map<String, dynamic>)))
+          .toList(),
+      G__typename: (json['__typename'] as String),
+    );
+  }
+
+  final String kind;
+
+  final String cycle;
+
+  final double lengthM;
+
+  final List<_i2.GLatLngData> coordinates;
+
+  final String G__typename;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    _$result['kind'] = this.kind;
+    _$result['cycle'] = this.cycle;
+    _$result['lengthM'] = this.lengthM;
+    _$result['coordinates'] =
+        this.coordinates.map((_$e) => _$e.toJson()).toList();
+    _$result['__typename'] = this.G__typename;
+    return _$result;
+  }
+
+  GProposalWaysFieldsData_spans copyWith({
+    String? kind,
+    String? cycle,
+    double? lengthM,
+    List<_i2.GLatLngData>? coordinates,
+    String? G__typename,
+  }) {
+    return GProposalWaysFieldsData_spans(
+      kind: kind ?? this.kind,
+      cycle: cycle ?? this.cycle,
+      lengthM: lengthM ?? this.lengthM,
+      coordinates: coordinates ?? this.coordinates,
+      G__typename: G__typename ?? this.G__typename,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GProposalWaysFieldsData_spans &&
+            kind == other.kind &&
+            cycle == other.cycle &&
+            lengthM == other.lengthM &&
+            _gqlUtils.listEquals(coordinates, other.coordinates) &&
+            G__typename == other.G__typename);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, kind, cycle, lengthM,
+        _gqlUtils.listHash(coordinates), G__typename);
+  }
+
+  @override
+  String toString() {
+    return 'GProposalWaysFieldsData_spans(kind: $kind, cycle: $cycle, lengthM: $lengthM, coordinates: $coordinates, G__typename: $G__typename)';
+  }
+}
+
 class GFetchRouteInsightsData {
   const GFetchRouteInsightsData({
     this.routeInsights,
@@ -730,5 +1058,130 @@ class GRecomputeRouteInsightsData {
   @override
   String toString() {
     return 'GRecomputeRouteInsightsData(recomputeRouteInsights: $recomputeRouteInsights, G__typename: $G__typename)';
+  }
+}
+
+class GFetchProposalElevationData {
+  const GFetchProposalElevationData({
+    this.routeProposalElevation,
+    this.G__typename = 'Query',
+  });
+
+  factory GFetchProposalElevationData.fromJson(Map<String, dynamic> json) {
+    return GFetchProposalElevationData(
+      routeProposalElevation: json['routeProposalElevation'] == null
+          ? null
+          : GElevationProfileFieldsData.fromJson(
+              (json['routeProposalElevation'] as Map<String, dynamic>)),
+      G__typename: (json['__typename'] as String),
+    );
+  }
+
+  final GElevationProfileFieldsData? routeProposalElevation;
+
+  final String G__typename;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$routeProposalElevationValue = this.routeProposalElevation;
+    _$result['routeProposalElevation'] = _$routeProposalElevationValue == null
+        ? null
+        : _$routeProposalElevationValue.toJson();
+    _$result['__typename'] = this.G__typename;
+    return _$result;
+  }
+
+  GFetchProposalElevationData copyWith({
+    GElevationProfileFieldsData? routeProposalElevation,
+    bool routeProposalElevationIsSet = false,
+    String? G__typename,
+  }) {
+    return GFetchProposalElevationData(
+      routeProposalElevation:
+          routeProposalElevation != null || routeProposalElevationIsSet
+              ? routeProposalElevation
+              : this.routeProposalElevation,
+      G__typename: G__typename ?? this.G__typename,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GFetchProposalElevationData &&
+            routeProposalElevation == other.routeProposalElevation &&
+            G__typename == other.G__typename);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, routeProposalElevation, G__typename);
+  }
+
+  @override
+  String toString() {
+    return 'GFetchProposalElevationData(routeProposalElevation: $routeProposalElevation, G__typename: $G__typename)';
+  }
+}
+
+class GFetchProposalWaysData {
+  const GFetchProposalWaysData({
+    this.routeProposalWays,
+    this.G__typename = 'Query',
+  });
+
+  factory GFetchProposalWaysData.fromJson(Map<String, dynamic> json) {
+    return GFetchProposalWaysData(
+      routeProposalWays: json['routeProposalWays'] == null
+          ? null
+          : GProposalWaysFieldsData.fromJson(
+              (json['routeProposalWays'] as Map<String, dynamic>)),
+      G__typename: (json['__typename'] as String),
+    );
+  }
+
+  final GProposalWaysFieldsData? routeProposalWays;
+
+  final String G__typename;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$routeProposalWaysValue = this.routeProposalWays;
+    _$result['routeProposalWays'] = _$routeProposalWaysValue == null
+        ? null
+        : _$routeProposalWaysValue.toJson();
+    _$result['__typename'] = this.G__typename;
+    return _$result;
+  }
+
+  GFetchProposalWaysData copyWith({
+    GProposalWaysFieldsData? routeProposalWays,
+    bool routeProposalWaysIsSet = false,
+    String? G__typename,
+  }) {
+    return GFetchProposalWaysData(
+      routeProposalWays: routeProposalWays != null || routeProposalWaysIsSet
+          ? routeProposalWays
+          : this.routeProposalWays,
+      G__typename: G__typename ?? this.G__typename,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GFetchProposalWaysData &&
+            routeProposalWays == other.routeProposalWays &&
+            G__typename == other.G__typename);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, routeProposalWays, G__typename);
+  }
+
+  @override
+  String toString() {
+    return 'GFetchProposalWaysData(routeProposalWays: $routeProposalWays, G__typename: $G__typename)';
   }
 }

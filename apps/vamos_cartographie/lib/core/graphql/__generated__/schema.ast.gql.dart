@@ -448,6 +448,70 @@ const ElevationPointType = _i1.ObjectTypeDefinitionNode(
     ),
   ],
 );
+const ElevationProfileType = _i1.ObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'ElevationProfileType'),
+  directives: [],
+  interfaces: [],
+  fields: [
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'ascentM'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Float'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'descentM'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Float'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'minElevationM'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Float'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'maxElevationM'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Float'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'lengthM'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Float'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'points'),
+      directives: [],
+      args: [],
+      type: _i1.ListTypeNode(
+        type: _i1.NamedTypeNode(
+          name: _i1.NameNode(value: 'ElevationPointType'),
+          isNonNull: true,
+        ),
+        isNonNull: true,
+      ),
+    ),
+  ],
+);
 const FileAttachmentType = _i1.ObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'FileAttachmentType'),
   directives: [],
@@ -1868,6 +1932,25 @@ const PreviewMobilitySpanType = _i1.ObjectTypeDefinitionNode(
     ),
   ],
 );
+const ProposalWaysType = _i1.ObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'ProposalWaysType'),
+  directives: [],
+  interfaces: [],
+  fields: [
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'spans'),
+      directives: [],
+      args: [],
+      type: _i1.ListTypeNode(
+        type: _i1.NamedTypeNode(
+          name: _i1.NameNode(value: 'WaySpanType'),
+          isNonNull: true,
+        ),
+        isNonNull: true,
+      ),
+    )
+  ],
+);
 const Query = _i1.ObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'Query'),
   directives: [],
@@ -2312,6 +2395,62 @@ const Query = _i1.ObjectTypeDefinitionNode(
       ],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'RouteInsightsType'),
+        isNonNull: false,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'routeProposalElevation'),
+      directives: [],
+      args: [
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'tripId'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'UUID'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        ),
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'proposalId'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'UUID'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        ),
+      ],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'ElevationProfileType'),
+        isNonNull: false,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'routeProposalWays'),
+      directives: [],
+      args: [
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'tripId'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'UUID'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        ),
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'proposalId'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'UUID'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        ),
+      ],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'ProposalWaysType'),
         isNonNull: false,
       ),
     ),
@@ -3470,6 +3609,52 @@ const WayShareType = _i1.ObjectTypeDefinitionNode(
     ),
   ],
 );
+const WaySpanType = _i1.ObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'WaySpanType'),
+  directives: [],
+  interfaces: [],
+  fields: [
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'kind'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'cycle'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'lengthM'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Float'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'coordinates'),
+      directives: [],
+      args: [],
+      type: _i1.ListTypeNode(
+        type: _i1.NamedTypeNode(
+          name: _i1.NameNode(value: 'LatLngType'),
+          isNonNull: true,
+        ),
+        isNonNull: true,
+      ),
+    ),
+  ],
+);
 const TileInput = _i1.InputObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'TileInput'),
   directives: [],
@@ -3688,6 +3873,7 @@ const document = _i1.DocumentNode(definitions: [
   EditRouteSuccess,
   EditSpanType,
   ElevationPointType,
+  ElevationProfileType,
   FileAttachmentType,
   FileTargetTypeEnum,
   GeometrySource,
@@ -3703,6 +3889,7 @@ const document = _i1.DocumentNode(definitions: [
   PlaceResult,
   PreviewEditSpanType,
   PreviewMobilitySpanType,
+  ProposalWaysType,
   Query,
   RangeMobilityInput,
   RefinementFailure,
@@ -3733,6 +3920,7 @@ const document = _i1.DocumentNode(definitions: [
   WaypointType,
   WaypointUpdateInput,
   WayShareType,
+  WaySpanType,
   TileInput,
   TripDiscoveryFilters,
   DiscoveredTripType,

@@ -1,3 +1,4 @@
+#import "/core/graphql/geo_fields.graphql"
 # Ce qu'on sait de la route une fois tracée : élévation, nature des voies.
 # Calculé après l'édition par le serveur ; peut manquer ou être périmé.
 fragment RouteInsightsFields on RouteInsightsType {
