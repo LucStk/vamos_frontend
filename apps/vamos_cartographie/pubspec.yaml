@@ -70,6 +70,7 @@ dependencies:
   flutter_map_vector_tiles: ^2.11.0
   flutter_map_animations: ^0.11.0
   material_ui: ^1.11.1
+  cupertino_ui: ^1.1.7
 
 dev_dependencies:
   test: ^1.30.0

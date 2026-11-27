@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart' hide id;
 import 'package:domain_core/domain_core.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/core/mappers/geometry_mappers/bounds_mapper.dart';
 import 'package:vamos_cartographie/core/mappers/geometry_mappers/position_mapper.dart';

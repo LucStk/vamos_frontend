@@ -1,5 +1,4 @@
 // On passe en StatefulConsumerWidget pour pouvoir stocker l'état "isAtMin"
-import 'package:flutter/cupertino.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_engine/map_engine.dart';

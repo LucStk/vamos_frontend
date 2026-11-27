@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter/foundation.dart';
 import 'package:map_canvas/map_canvas.dart';
 import 'package:vamos_cartographie/map/rendering/visual_transitions.dart';
